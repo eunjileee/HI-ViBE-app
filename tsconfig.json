@@ -7,9 +7,5 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
-    // "baseUrl": "./src",
-    // "paths": {
-    //   "~/*": ["*"] // resolve any `~/foo/bar` to `<baseUrl>/foo/bar`
-    // }
   }
 }
