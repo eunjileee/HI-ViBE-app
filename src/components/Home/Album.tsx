@@ -1,5 +1,5 @@
 import React /*, { useEffect, useState }*/ from 'react';
-import { View, Text, Image, FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 
 interface slide {
@@ -17,124 +17,122 @@ const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20190820_226/15662676982603EMqd_GIF/rising_PSD_190819_1.gif?type=f360',
-    title: '편견을 깨는 힙합 아이돌',
-    subTitle: 'VIBE 국내 힙합',
+      'https://musicmeta-phinf.pstatic.net/album/004/484/4484620.jpg?type=r360Fll&v=20200313191006',
+    title: '이태원 클라쓰 OST',
+    subTitle: 'V',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20200309_199/15837468926596rlwH_PNG/cover_img_%BF%E4%C1%F2%C0%CC%B0%EE_0309.png?type=f360',
-    title: '알앤비 X 힙합',
-    subTitle: 'VIBE 국내 알앤비/소울',
+      'https://musicmeta-phinf.pstatic.net/album/004/483/4483907.jpg?type=r360Fll&v=20200312175910',
+    title: '문득',
+    subTitle: '노을',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20200306_244/1583461472494b3BGb_JPEG/vibe_0306_Swings_cover.jpg?type=f360',
+      'https://musicmeta-phinf.pstatic.net/album/004/478/4478430.jpg?type=r360Fll&v=20200316165045',
     title: 'DOPE!',
     subTitle: 'VIBE 트렌드',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20191108_72/1573206817385S2rDF_PNG/%C0%CC%B3%EB%B7%A1%B9%B9%C1%F6.png?type=f360',
-    title: '이 노래 뭐지?',
-    subTitle: 'VIBE',
+      'https://musicmeta-phinf.pstatic.net/album/004/481/4481553.jpg?type=r360Fll&v=20200311102009',
+    title: '너를',
+    subTitle: '이우',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20191125_275/1574651656850FP2WR_PNG/VIBE_VibeAndChill.png?type=f360',
-    title: 'VIBE AND CHILL',
-    subTitle: 'VIBE',
+      'https://musicmeta-phinf.pstatic.net/album/004/476/4476213.jpg?type=r360Fll&v=20200306141203',
+    title: 'LandScape',
+    subTitle: 'nawhij',
   },
 ];
 
 function Item({ img, title, subTitle }) {
   return (
-    <ItemBackground>
+    <ItemContainer>
       <AlbumImage source={{ uri: `${img}` }} />
-      <Title>{title}</Title>
-      <SubTitle>{subTitle}</SubTitle>
-    </ItemBackground>
+      <TextContainer>
+        <Title>{title}</Title>
+        <SubTitle>{subTitle}</SubTitle>
+      </TextContainer>
+    </ItemContainer>
   );
 }
 
 const Album = () => {
   return (
-    <AlbumContainer>
+    <Container>
       <AlbumBar>
         <AlbumTitle>좋아할 최신 앨범</AlbumTitle>
         <More>더보기</More>
       </AlbumBar>
-      <SlideContainer>
-        <SafeAreaView>
-          <FlatList
-            data={DATA}
-            horizontal
-            renderItem={({ item }) => (
-              <Item
-                img={item.img}
-                title={item.title}
-                subTitle={item.subTitle}
-              />
-            )}
-            keyExtractor={item => item.id}
-          />
-        </SafeAreaView>
-      </SlideContainer>
-    </AlbumContainer>
+      <SafeAreaView>
+        <FlatList
+          data={DATA}
+          horizontal
+          renderItem={({ item }) => (
+            <Item img={item.img} title={item.title} subTitle={item.subTitle} />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </SafeAreaView>
+    </Container>
   );
 };
 
 export default Album;
 
-const AlbumContainer = styled.View`
+// fixed
+const Container = styled.View`
   flex: 1;
 `;
 
 const AlbumBar = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 15;
-  margin-bottom: 20;
+  margin: 0 23px 15px 0;
 `;
 
 const AlbumTitle = styled.Text`
-  font-size: 20;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
 `;
 
 const More = styled.Text`
-  font-size: 14;
-  color: gray;
+  font-size: 15px;
+  color: #616161;
 `;
 
-const SlideContainer = styled.SafeAreaView`
+// Contents
+const ItemContainer = styled.View`
   flex: 1;
-`;
-
-const ItemBackground = styled.View`
-  margin-right: 10;
+  margin-right: 10px;
 `;
 
 const AlbumImage = styled.Image`
-  width: 160;
-  height: 160;
+  width: 175px;
+  height: 175px;
+`;
+
+const TextContainer = styled.View`
+  width: 160px;
 `;
 
 const Title = styled.Text`
-  margin-top: 10;
-  font-size: 15;
+  margin-top: 15px;
+  font-size: 18px;
   color: white;
 `;
 
 const SubTitle = styled.Text`
-  margin-top: 5;
-  margin-bottom: 20;
-  font-size: 14;
+  margin-top: 5px;
+  margin-bottom: 50px;
+  font-size: 16px;
   color: gray;
 `;

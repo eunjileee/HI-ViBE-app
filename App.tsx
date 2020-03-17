@@ -16,7 +16,7 @@ const App = () => {
           hidden={false}
         />
       </StatusBarContainer>
-      <PrevModal />
+      {/* <PrevModal /> */}
       <PlayBar />
       <Navigation />
     </>

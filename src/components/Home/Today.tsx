@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 interface slide {
@@ -44,43 +44,43 @@ const TodaySlide = ({ label, img, title, subTitle }) => {
       <Img source={{ uri: `${img}` }} />
       <TrackTitle>{title}</TrackTitle>
       <SubTitle>{subTitle}</SubTitle>
-      <Line />
     </SlideContainer>
   );
 };
 
-const Today = () => {
-  return (
-    <Container>
-      <TitleBar>
-        <Title>오늘의 VIBE</Title>
-        <More />
-      </TitleBar>
-      <SafeAreaView>
-        <FlatList
-          data={DATA}
-          horizontal
-          renderItem={({ item }) => (
-            <TodaySlide
-              label={item.label}
-              img={item.img}
-              title={item.title}
-              subTitle={item.subTitle}
-            />
-          )}
-          keyExtractor={item => item.title}
-        />
-      </SafeAreaView>
-      <Line />
-    </Container>
-  );
-};
+class Today extends React.Component {
+  render() {
+    return (
+      <ScrollView>
+        <Container>
+          <TitleBar>
+            <Title>오늘의 VIBE</Title>
+            <More />
+          </TitleBar>
+          <FlatList
+            data={DATA}
+            horizontal
+            renderItem={({ item }) => (
+              <TodaySlide
+                label={item.label}
+                img={item.img}
+                title={item.title}
+                subTitle={item.subTitle}
+              />
+            )}
+            keyExtractor={item => item.title}
+          />
+        </Container>
+      </ScrollView>
+    );
+  }
+}
 
 export default Today;
 
 // fixed
 const Container = styled.View`
-  flex: 1;
+  flex: 2;
   margin-top: 10%;
 `;
 
@@ -105,36 +105,35 @@ const More = styled.Text`
 
 // Contents
 const SlideContainer = styled.View`
+  flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  margin-right: 10px;
+  border-bottom-width: 1px;
+  border-bottom-color: #1e1e1e;
+  margin: 0 10px 45px 0;
 `;
 
 const Label = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   color: #ff0050;
 `;
 
 const Img = styled.Image`
-  width: 350px;
-  height: 230px;
-  margin-top: 10px;
+  width: 360px;
+  height: 180px;
+  margin: 10px 0 15px 0;
 `;
 
 const TrackTitle = styled.Text`
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: white;
 `;
 
 const SubTitle = styled.Text`
-  font-size: 14px;
+  margin: 3px 0 25px;
+  font-size: 16px;
   color: gray;
-`;
-
-const Line = styled.View`
-  border-color: gray;
-  border-style: solid;
 `;
 
 // export const Today = () => {
