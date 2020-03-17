@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 import { chart } from '../../data/chart';
@@ -44,20 +44,18 @@ export default class ChartScreen extends React.Component<object, data> {
     return (
       <ScrollView>
         <Container>
+          <Title>차트</Title>
           <View>
-            <ChartTitle>차트</ChartTitle>
-          </View>
-          <ChartData>
             {data.map(el => {
               return (
                 <AllChart
                   title={el.title}
-                  chartDate={el.chart_data}
+                  chartDate={el.chart_date}
                   items={el.items}
                 />
               );
             })}
-          </ChartData>
+          </View>
         </Container>
       </ScrollView>
     );
@@ -66,18 +64,17 @@ export default class ChartScreen extends React.Component<object, data> {
 
 const Container = styled.View`
   flex: 1;
-  padding-left: 20;
-  padding-right: 20;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 7%;
+  padding-top: 10%;
   background-color: black;
 `;
 
-const ChartTitle = styled.Text`
-  margin-top: 75;
+const Title = styled.Text`
+  padding-right: 3%;
+  margin-bottom: 7%;
   font-size: 30;
   font-weight: bold;
   color: white;
-`;
-
-const ChartData = styled.View`
-  margin-top: 7%;
 `;

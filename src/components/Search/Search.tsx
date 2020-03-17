@@ -28,7 +28,7 @@ function News({ id, image, title }) {
     <NewsContainer>
       <Image source={{ uri: `${image}` }} />
       <NewsTitle>
-        <View>{title}</View>
+        <Text>{title}</Text>
         <View>
           <Select>관련 뉴스 보기 ></Select>
           <Listen>음악듣기</Listen>

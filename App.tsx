@@ -3,8 +3,7 @@ import { StatusBar, Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 import Navigation from './src/components/Navigation';
-import PlayBar from './src/components/PlayBar';
-import PrevModal from './src/components/PrevModal';
+import Player from './src/components/Player';
 
 const App = () => {
   return (
@@ -16,8 +15,7 @@ const App = () => {
           hidden={false}
         />
       </StatusBarContainer>
-      {/* <PrevModal /> */}
-      <PlayBar />
+      <Player />
       <Navigation />
     </>
   );

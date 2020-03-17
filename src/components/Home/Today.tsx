@@ -48,7 +48,7 @@ const TodaySlide = ({ label, img, title, subTitle }) => {
   );
 };
 
-class Today extends React.Component {
+class Today extends React.Component<object, slide> {
   render() {
     return (
       <ScrollView>
