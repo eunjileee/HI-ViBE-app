@@ -30,6 +30,6 @@ const Container = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 3%;
+  padding-left: 7%;
   background-color: black;
 `;

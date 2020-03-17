@@ -20,10 +20,10 @@ const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     img:
-      'https://music-phinf.pstatic.net/20200122_232/1579693792325OPeyx_PNG/%C0%CC%B4%DE%C0%C7%B3%EB%B7%A1_%C1%A4%B9%E6%C7%FC.png?type=w720',
+      'https://music-phinf.pstatic.net/20200316_152/1584345235224ChSmG_JPEG/0_%B4%EB%C7%A5_%C0%CC%B9%CC%C1%F6.jpg?type=w720',
     title:
       'https://music-phinf.pstatic.net/20190527_64/1558943253671FKQca_PNG/icon_GENRE.png',
-    subTitle: '호텔 캘리포니아 로비에서 \n듣는 재즈',
+    subTitle: '역대 007 시리즈 \n주제가들',
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -61,23 +61,23 @@ const DATA = [
 
 const Item = ({ img, title, subTitle }) => {
   return (
-    <ItemBackground>
+    <ItemContainer>
       <AlbumImage source={{ uri: `${img}` }} />
-      <Title>
-        <Tag source={{ uri: `${title}` }} />
+      <TextContainer>
+        <Tag resizeMode="contain" source={{ uri: `${title}` }} />
         <SubTitle>{subTitle}</SubTitle>
-      </Title>
-    </ItemBackground>
+      </TextContainer>
+    </ItemContainer>
   );
 };
 
 const MAG = () => {
   return (
-    <ListenContainer>
-      <ListeneBar>
-        <LikeTitle>VIBE MAG</LikeTitle>
+    <Container>
+      <MAGBar>
+        <MAGTitle>VIBE MAG</MAGTitle>
         <More>더보기</More>
-      </ListeneBar>
+      </MAGBar>
       <SafeAreaView>
         <FlatList
           data={DATA}
@@ -88,57 +88,58 @@ const MAG = () => {
           keyExtractor={item => item.id}
         />
       </SafeAreaView>
-    </ListenContainer>
+    </Container>
   );
 };
 
 export default MAG;
 
-const ListenContainer = styled.View`
+// fixed
+const Container = styled.View`
   flex: 1;
-  margin-top: 20;
 `;
 
-const ListeneBar = styled.View`
+const MAGBar = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 15;
-  margin-bottom: 20;
+  margin: 0 23px 15px 0;
 `;
 
-const LikeTitle = styled.Text`
-  font-size: 20;
+const MAGTitle = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
   color: white;
 `;
 
 const More = styled.Text`
-  font-size: 14;
-  color: gray;
+  font-size: 15px;
+  color: #616161;
 `;
 
-const ItemBackground = styled.View`
+// Contents
+const ItemContainer = styled.View`
   flex: 1;
-  margin-right: 10;
+  margin-right: 10px;
 `;
 
 const AlbumImage = styled.Image`
-  width: 330;
-  height: 330;
   position: relative;
-  margin-bottom: 40;
+  width: 360px;
+  height: 360px;
+  margin-bottom: 50px;
 `;
 
-const Title = styled.View`
+const TextContainer = styled.View`
   position: absolute;
-  top: 220;
-  left: 20;
+  top: 245px;
+  left: 20px;
 `;
 
 const Tag = styled.Image`
-  width: 77;
-  height: 28;
-  margin-bottom: 10;
+  width: 77px;
+  height: 28px;
+  margin-bottom: 10px;
 `;
 
 const SubTitle = styled.Text`

@@ -207,44 +207,46 @@ export const theme = {
       name: 'VIVID MUSIC',
     },
   ],
-  theme_details: {
-    category: 'VIBE 공식 테마',
-    charge: '무료',
-    creator: 'VIBE Music',
-    image:
-      'https://music-phinf.pstatic.net/20181221_205/1545377617412jQkXF_PNG/mood_0_cover.png?type=f360',
-    name: 'VIBE 기본테마',
-  },
-  theme_images: [
+  theme_details: [
     {
+      category: 'VIBE 공식 테마',
+      charge: '무료',
+      creator: 'VIBE Music',
       image:
-        'https://music-phinf.pstatic.net/20181204_12/1543919038829yWYk3_PNG/mood_1_NowHot.png?type=f360',
-      station_id: 1,
-    },
-    {
-      image:
-        'https://music-phinf.pstatic.net/20181204_2/15439190440846klaY_PNG/mood_2_Hip.png?type=f360',
-      station_id: 2,
-    },
-    {
-      image:
-        'https://music-phinf.pstatic.net/20181204_105/1543919062515Xp8bk_PNG/mood_3_Happy.png?type=f360',
-      station_id: 3,
-    },
-    {
-      image:
-        'https://music-phinf.pstatic.net/20181204_293/1543919067827JDkst_PNG/mood_4_Sad.png?type=f360',
-      station_id: 4,
-    },
-    {
-      image:
-        'https://music-phinf.pstatic.net/20181204_172/1543919073866Pm0mo_PNG/mood_5_Love.png?type=f360',
-      station_id: 5,
-    },
-    {
-      image:
-        'https://music-phinf.pstatic.net/20181204_15/154391910597070Dev_PNG/mood_6_Broken.png?type=f360',
-      station_id: 6,
+        'https://music-phinf.pstatic.net/20181221_205/1545377617412jQkXF_PNG/mood_0_cover.png?type=f360',
+      name: 'VIBE 기본테마',
+      theme_images: [
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_12/1543919038829yWYk3_PNG/mood_1_NowHot.png?type=f360',
+          station_id: 1,
+        },
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_2/15439190440846klaY_PNG/mood_2_Hip.png?type=f360',
+          station_id: 2,
+        },
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_105/1543919062515Xp8bk_PNG/mood_3_Happy.png?type=f360',
+          station_id: 3,
+        },
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_293/1543919067827JDkst_PNG/mood_4_Sad.png?type=f360',
+          station_id: 4,
+        },
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_172/1543919073866Pm0mo_PNG/mood_5_Love.png?type=f360',
+          station_id: 5,
+        },
+        {
+          image:
+            'https://music-phinf.pstatic.net/20181204_15/154391910597070Dev_PNG/mood_6_Broken.png?type=f360',
+          station_id: 6,
+        },
+      ],
     },
   ],
 };

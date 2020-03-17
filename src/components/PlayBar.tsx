@@ -1,9 +1,17 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import * as React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
+import PrevModal from './PrevModal';
+
 const PlayBar = () => {
+  const [visible, setVisible] = useState(false);
+
+  const setModalVisible = visible => {
+    setVisible(visible);
+  };
+
   return (
     <PlayBarContainer>
       <Music>
@@ -19,10 +27,19 @@ const PlayBar = () => {
         </View>
       </Music>
       <Icons>
-        <MaterialIcons name="play-arrow" color="white" size="40" />
-        <MaterialIcons name="fast-forward" color="white" size="40" />
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <MaterialIcons name="play-arrow" color="white" size="40" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={setModalVisible}>
+          <MaterialIcons name="fast-forward" color="white" size="40" />
+        </TouchableOpacity>
         <MaterialIcons name="playlist-play" color="white" size="40" />
       </Icons>
+      {/* <PrevModal /> */}
     </PlayBarContainer>
   );
 };
