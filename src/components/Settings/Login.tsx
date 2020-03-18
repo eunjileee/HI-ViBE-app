@@ -1,34 +1,41 @@
+import axios from 'axios';
+import { AuthSession } from 'expo';
 import * as React from 'react';
-import {
-  Alert,
-  View,
-  Text,
-  WebView,
-  Button,
-  TouchableOpacity,
-  StackActions,
-  NavigationActions,
-} from 'react-native';
 import styled from 'styled-components/native';
 
-export default class Login extends React.Component {
+import NaverLogin from './NaverLogin';
+
+interface User {
+  token: string;
+  code: string;
+  user: string;
+}
+
+const NV_APP_ID = 'dKgYsCotSS5U0VtHyMPm';
+const NV_APP_SECRET = '2si_Wnt86l';
+const STATE_STRING = 'YOUR_SECRET_STRING';
+
+export default class Login extends React.Component<User, object> {
+  state: User = {
+    token: '',
+    code: '',
+    user: '',
+  };
+
   naverLogin = async () => {
-    const uri = await this.props.getNaverUri();
-    this.props.navigation.push('WebLogin', {
-      uri,
-      login: this.insertLogin,
-      loginFail: this.loginFail,
+    let redirectUrl = AuthSession.getRedirectUrl();
+
+    const result = await AuthSession.startAsync({
+      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
+        redirectUrl
+      )}&state=${STATE_STRING}`,
     });
-  };
 
-  insertLogin = () => {
-    console.log('SettingScreen insertLogin');
-  };
+    this.setState({
+      code: result.code,
+    });
 
-  loginFail = () => {
-    console.log('SettingScreen loginFail');
-    this.props.navigation.goBack();
-    alert('로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.');
+    handleGetAccess();
   };
 
   render() {
@@ -36,8 +43,8 @@ export default class Login extends React.Component {
       <LoginContainer>
         <Contents>로그아웃 상태입니다.</Contents>
         <SubContents>{`보관함을 사용하려면\n VIBE에 로그인해 주세요.`}</SubContents>
-        <Btn>
-          <BtnText onPress={this.naverLogin}>로그인</BtnText>
+        <Btn onPress={this.naverLogin}>
+          <BtnText>로그인</BtnText>
         </Btn>
       </LoginContainer>
     );
@@ -51,28 +58,30 @@ const LoginContainer = styled.View`
 `;
 
 const Contents = styled.Text`
-  margin-bottom: 10;
-  font-size: 25;
+  margin-bottom: 20px;
+  font-size: 30px;
   font-weight: bold;
   color: white;
 `;
 
 const SubContents = styled.Text`
-  font-size: 20;
+  line-height: 32px;
+  font-size: 20px;
   text-align: center;
   color: white;
 `;
 
 const Btn = styled.TouchableOpacity`
-  width: 100;
-  height: 40;
-  border-radius: 50;
-  margin-top: 30;
-  font-size: 18;
-  background-color: gray;
+  width: 100px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin-top: 25px;
+  background-color: #7a7a7a;
 `;
 
 const BtnText = styled.Text`
-  text-align: center;
+  font-size: 18px;
   color: white;
 `;
