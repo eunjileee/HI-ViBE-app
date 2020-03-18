@@ -5,13 +5,14 @@ import styled from 'styled-components/native';
 
 import PrevModal from './PrevModal';
 
-export default class player extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isVisible: false,
-    };
-  }
+interface State {
+  isVisible: boolean;
+}
+
+export default class player extends Component<State> {
+  state: State = {
+    isVisible: false,
+  };
 
   setModalVisible = () => {
     this.setState({

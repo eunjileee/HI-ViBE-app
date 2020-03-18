@@ -11,16 +11,18 @@ import Today from '../components/Home/Today';
 
 const HomeScreen = () => {
   return (
-    <ScrollView>
-      <Container>
-        <Today />
-        <Like />
-        <Listen />
-        <Album />
-        <MAG />
-        <Footer />
-      </Container>
-    </ScrollView>
+    <>
+      <ScrollView>
+        <Container>
+          <Today />
+          <Like />
+          <Listen />
+          <Album />
+          <MAG />
+          <Footer />
+        </Container>
+      </ScrollView>
+    </>
   );
 };
 
