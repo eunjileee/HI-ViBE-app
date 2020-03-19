@@ -9,7 +9,6 @@ import Promotion from './src/components/Promotion';
 interface State {
   isVisible: boolean;
 }
-
 export default class App extends Component<State> {
   state: State = {
     isVisible: true,
