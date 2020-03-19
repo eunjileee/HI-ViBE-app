@@ -1,9 +1,8 @@
-import axios from 'axios';
 import { AuthSession } from 'expo';
 import * as React from 'react';
 import styled from 'styled-components/native';
 
-import NaverLogin from './NaverLogin';
+// import NaverLogin from './NaverLogin';
 
 interface User {
   token: string;
@@ -13,13 +12,14 @@ interface User {
 
 const NV_APP_ID = 'dKgYsCotSS5U0VtHyMPm';
 const NV_APP_SECRET = '2si_Wnt86l';
-const STATE_STRING = 'YOUR_SECRET_STRING';
+const STATE_STRING = '2si_Wnt86l';
 
 export default class Login extends React.Component<User, object> {
   state: User = {
     token: '',
     code: '',
     user: '',
+    result: '',
   };
 
   naverLogin = async () => {
@@ -31,11 +31,10 @@ export default class Login extends React.Component<User, object> {
       )}&state=${STATE_STRING}`,
     });
 
-    this.setState({
-      code: result.code,
-    });
-
-    handleGetAccess();
+    // this.setState({
+    //   code: result.code,
+    // });
+    this.setState({ result });
   };
 
   render() {
@@ -55,6 +54,7 @@ const LoginContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  padding-right: 7%;
 `;
 
 const Contents = styled.Text`
