@@ -7,7 +7,7 @@ export default class PrevModal extends Component {
   render() {
     return (
       <PrevContainer>
-        <TouchableOpacity onPress={this.props.Visible}>
+        <TouchableOpacity onPress={this.props.visible}>
           <EvilIcons name="close" color="white" size="28" />
         </TouchableOpacity>
         <ContentAlign>
