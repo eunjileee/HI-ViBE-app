@@ -228,12 +228,12 @@ export default class ThemeScreen extends React.Component<object, data> {
 
 const Container = styled.View`
   flex: 1;
-  padding-left: 20px;
+  padding-left: 7%;
+  padding-top: 10%;
   background-color: black;
 `;
 
 const Title = styled.Text`
-  padding-top: 75px;
   font-size: 30px;
   font-weight: bold;
   color: white;
@@ -243,7 +243,7 @@ const TitleBar = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 20px;
+  margin: 0 23px 15px 0;
 `;
 
 const Data = styled.View`
@@ -252,14 +252,14 @@ const Data = styled.View`
 `;
 
 const Img = styled.Image`
-  width: 181px;
-  height: 181px;
+  width: 175px;
+  height: 175px;
   margin-right: 15px;
   margin-bottom: 15px;
 `;
 
 const Station = styled.Text`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
   color: white;
@@ -271,7 +271,6 @@ const StationContainer = styled.View`
 `;
 
 const Btn = styled.Text`
-  margin-top: 75px;
   padding: 10px;
   border: 1px solid white;
   border-radius: 5px;

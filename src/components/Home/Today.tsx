@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { FlatList, ScrollView, Animated, Easing } from 'react-native';
 import styled from 'styled-components/native';
 
 interface slide {
@@ -48,7 +48,31 @@ const TodaySlide = ({ label, img, title, subTitle }) => {
   );
 };
 
-class Today extends React.Component<object, slide> {
+class Today extends React.Component {
+  state = {
+    value: new Animated.Value(0),
+  };
+
+  // animate = easing => {
+  //   Animated.timing(this.state.value, {
+  //     toValue: 1,
+  //     duration: 1000,
+  //     easing: Easing.ease,
+  //   }).start();
+  // };
+
+  onScroll = e => {
+    Animated.event([
+      {
+        nativeEvent: {
+          contentOffset: {
+            x: e.nativeEvent.contentOffset.x,
+          },
+        },
+      },
+    ]);
+  };
+
   render() {
     return (
       <ScrollView>
@@ -57,9 +81,11 @@ class Today extends React.Component<object, slide> {
             <Title>오늘의 VIBE</Title>
             <More />
           </TitleBar>
-          <FlatList
+          <Animated.FlatList
             data={DATA}
             horizontal
+            scrollEventThrottle={16}
+            onScroll={this.onScroll}
             renderItem={({ item }) => (
               <TodaySlide
                 label={item.label}
