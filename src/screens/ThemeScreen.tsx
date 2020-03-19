@@ -24,12 +24,62 @@ interface data {
 
 export default class ThemeScreen extends React.Component<object, data> {
   state = {
-    data: theme.data,
-    list: theme.theme_list,
-    info: theme.theme_details,
+    data: [],
+    list: [],
+    firstInfo: [],
+    lastInfo: [],
     modalVisible: false,
     themeInfo: false,
   };
+
+  componentDidMount() {
+    this.getThemeInfoFirst();
+    this.getThemeInfoSecond();
+  }
+
+  getListTheme() {
+    var url = 'http://40a4e055.ngrok.io/music/station';
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          data: res.station_list,
+        });
+      });
+  }
+
+  getThemeList() {
+    var url = 'http://40a4e055.ngrok.io/music/station/theme';
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          list: res.theme_list,
+        });
+      });
+  }
+
+  getThemeInfoFirst() {
+    var url = 'http://40a4e055.ngrok.io/music/station/theme1';
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          firstInfo: res.theme_images,
+        });
+      });
+  }
+
+  getThemeInfoSecond() {
+    var url = 'http://40a4e055.ngrok.io/music/station/theme30';
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          lastInfo: res.theme_images,
+        });
+      });
+  }
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -40,7 +90,7 @@ export default class ThemeScreen extends React.Component<object, data> {
   }
 
   render() {
-    const { data, list, info } = this.state;
+    const { data, list, firstInfo, lastInfo } = this.state;
 
     return (
       <ScrollView>
@@ -85,7 +135,7 @@ export default class ThemeScreen extends React.Component<object, data> {
                       this.modalClicked(true);
                     }}
                   >
-                    <Img key={el.id} source={{ uri: `${el.main_image}` }} />
+                    <Img key={el.id} source={{ uri: `${el.image}` }} />
                     <Name>{el.name}</Name>
                     <Creator>{el.creator}</Creator>
                   </TouchableOpacity>
@@ -123,7 +173,7 @@ export default class ThemeScreen extends React.Component<object, data> {
               </TouchableOpacity>
             </StationBar>
             <ListContainer>
-              {info.map(el => {
+              {data.map(el => {
                 return (
                   <>
                     <View>
@@ -153,20 +203,20 @@ export default class ThemeScreen extends React.Component<object, data> {
           <Data>
             <Station>느낌별 스테이션</Station>
             <StationContainer>
-              {data.map(el => {
-                if (el.id < 15) {
-                  return <Img key={el.id} source={{ uri: `${el.img}` }} />;
-                }
+              {firstInfo.map(el => {
+                return (
+                  <Img key={el.station_id} source={{ uri: `${el.image}` }} />
+                );
               })}
             </StationContainer>
           </Data>
           <Data>
             <Station>장르 스테이션</Station>
             <StationContainer>
-              {data.map(el => {
-                if (el.id > 15) {
-                  return <Img key={el.id} source={{ uri: `${el.img}` }} />;
-                }
+              {lastInfo.map(el => {
+                return (
+                  <Img key={el.station_id} source={{ uri: `${el.image}` }} />
+                );
               })}
             </StationContainer>
           </Data>
