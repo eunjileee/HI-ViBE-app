@@ -8,38 +8,33 @@ const SettingsScreen = () => {
   return (
     <Container>
       <TitleBar>
-        <SettingsTitle>보관함</SettingsTitle>
-        <SimpleLineIcons name="settings" color="white" size="20" />
+        <Title>보관함</Title>
+        <SimpleLineIcons name="settings" color="white" size="22" />
       </TitleBar>
-      <Contents>
-        <Login />
-      </Contents>
+      <Login />
     </Container>
   );
 };
 
 export default SettingsScreen;
 
+// fixed
 const Container = styled.View`
   flex: 1;
-  padding-left: 20;
-  padding-right: 20;
+  padding-left: 7%;
+  padding-top: 10%;
   background-color: black;
 `;
 
 const TitleBar = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-right: 7%;
 `;
 
-const SettingsTitle = styled.Text`
+const Title = styled.Text`
   font-size: 30;
   font-weight: bold;
   color: white;
-`;
-
-const Contents = styled.View`
-  flex: 4;
 `;
