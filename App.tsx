@@ -3,7 +3,7 @@ import { StatusBar, Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 import Navigation from './src/components/Navigation';
-import Player from './src/components/Player';
+import Player from './src/components/Player/Player';
 import Promotion from './src/components/Promotion';
 
 interface State {
