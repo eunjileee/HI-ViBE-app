@@ -8,13 +8,13 @@ import MV from './MV';
 const AllChart = props => {
   return (
     <>
-      <Title>
+      <TitleBar>
         <SubTitle>
           <Name>{props.title}</Name>
           <Date>{props.chartDate}</Date>
         </SubTitle>
         <More>더보기</More>
-      </Title>
+      </TitleBar>
       <ScrollView horizontal>
         <Container>
           {props.items.map(el => {
@@ -45,31 +45,34 @@ const AllChart = props => {
 
 export default AllChart;
 
-const Title = styled.View`
+// Title
+const TitleBar = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  margin: 0 23px 15px 0;
 `;
 
 const SubTitle = styled.View`
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const Name = styled.Text`
-  font-size: 20;
-  font-weight: bold;
+  margin-bottom: 7px;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
 `;
 
 const Date = styled.Text`
+  font-size: 15px;
   color: gray;
 `;
 
 const More = styled.Text`
-  color: white;
+  font-size: 15px;
+  color: #616161;
 `;
 
 const Container = styled.View`
