@@ -1,29 +1,30 @@
+import axios from 'axios';
 import { AuthSession } from 'expo';
 import * as React from 'react';
 import styled from 'styled-components/native';
 
-// import NaverLogin from './NaverLogin';
-
 interface User {
   token: string;
-  code: string;
   user: string;
+  code: string;
 }
 
-const NV_APP_ID = 'dKgYsCotSS5U0VtHyMPm';
-const NV_APP_SECRET = '2si_Wnt86l';
-const STATE_STRING = '2si_Wnt86l';
+const NV_APP_ID = 'uGvDxbkCApYrnk6yRPSw';
+const NV_APP_SECRET = '9bgFVVFfeZ';
+const STATE_STRING = '';
 
 export default class Login extends React.Component<User, object> {
   state: User = {
     token: '',
-    code: '',
     user: '',
-    result: '',
+    code: '',
   };
 
+  //authsession
   naverLogin = async () => {
     let redirectUrl = AuthSession.getRedirectUrl();
+    console.log('redirectUrl', redirectUrl);
+    console.log('encodeURIComponent', encodeURIComponent(redirectUrl));
 
     const result = await AuthSession.startAsync({
       authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
@@ -31,10 +32,41 @@ export default class Login extends React.Component<User, object> {
       )}&state=${STATE_STRING}`,
     });
 
-    // this.setState({
-    //   code: result.code,
-    // });
-    this.setState({ result });
+    console.log('result : ', result);
+
+    this.setState({
+      code: result.code,
+    });
+
+    this.getAccessToken();
+  };
+
+  //http data request
+  getAccessToken = async () => {
+    const {
+      data: { access_token },
+    } = await axios.get(
+      `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID} &client_secret=${NV_APP_SECRET} &code=${this.state.code}&state=${STATE_STRING}`
+    );
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+
+    this.setState({
+      token: data.access_token,
+    });
+
+    const { data } = await axios.get(
+      'https://openapi.naver.com/v1/nid/me',
+      config
+    );
+    console.log('data : ', data);
+    this.setState({
+      user: data,
+    });
   };
 
   render() {
@@ -85,3 +117,21 @@ const BtnText = styled.Text`
   font-size: 18px;
   color: white;
 `;
+
+// handleGetToken = async () => {
+//   const { result } = this.state;
+//   const url = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID} &client_secret=${NV_APP_SECRET} &code=${result.params.code}&state=${result.params.state}`;
+//   fetch(url, {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${access_token}`,
+//     },
+//   })
+//     .then(res => res.json())
+//     .then(res => {
+//       console.log('getTokenRes : ', res);
+//       // this.setState({
+//       //   user: ,
+//       // });
+//     });
+// };
