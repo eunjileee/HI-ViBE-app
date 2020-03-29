@@ -2,6 +2,8 @@ import React from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 
+import { albumList } from '../../../config';
+
 interface slide {
   label: string;
   img: string;
@@ -23,8 +25,7 @@ export default class Album extends React.Component {
   };
 
   getAlbumList = () => {
-    var url = 'http://40a4e055.ngrok.io/music/latestalbum';
-    fetch(url)
+    fetch(albumList)
       .then(res => res.json())
       .then(res => {
         this.setState({

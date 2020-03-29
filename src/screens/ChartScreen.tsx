@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FlatList, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
+import { domesticAlbumList, foreignAlbumList, video } from '../../config';
 import { chart } from '../../data/chart';
 import LatestList from '../components/Chart/ LatestList';
 import ChartList from '../components/Chart/ChartList';
@@ -40,7 +41,7 @@ export default class ChartScreen extends React.Component<object, data> {
 
   getChartList() {
     // 국내 급상승
-    fetch('http://d145a65b.ngrok.io/music/domesticalbum')
+    fetch(domesticAlbumList)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -48,7 +49,7 @@ export default class ChartScreen extends React.Component<object, data> {
         });
       });
     // 해외 급상승
-    fetch('http://d145a65b.ngrok.io/music/foreignalbum')
+    fetch(foreignAlbumList)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -56,7 +57,7 @@ export default class ChartScreen extends React.Component<object, data> {
         });
       });
     //뮤직비디오
-    fetch('http://d145a65b.ngrok.io/music/video')
+    fetch(video)
       .then(res => res.json())
       .then(res => {
         this.setState({

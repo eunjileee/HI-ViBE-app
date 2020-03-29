@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 
+import { mag } from '../../../config';
 import { slide } from '../../../data/slide';
 
 interface slide {
@@ -66,8 +67,7 @@ export default class MAG extends React.Component {
   }
 
   getListCall() {
-    var url = 'http://40a4e055.ngrok.io/music/magazine';
-    fetch(url)
+    fetch(mag)
       .then(res => res.json())
       .then(res => {
         this.setState({
