@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { FlatList, ScrollView, Animated, Easing } from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  Animated,
+  Easing,
+  StyleSheet,
+} from 'react-native';
 import styled from 'styled-components/native';
 
 interface slide {
@@ -12,6 +18,8 @@ interface slide {
 interface data {
   data: slide[];
 }
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const DATA = [
   {
@@ -48,32 +56,47 @@ const TodaySlide = ({ label, img, title, subTitle }) => {
   );
 };
 
-class Today extends React.Component {
+export default class Today extends React.Component<data> {
   state = {
+    data: [],
     value: new Animated.Value(0),
   };
 
-  // animate = easing => {
-  //   Animated.timing(this.state.value, {
-  //     toValue: 1,
-  //     duration: 1000,
-  //     easing: Easing.ease,
-  //   }).start();
-  // };
+  componentDidMount() {
+    this.fadeOut();
+  }
 
-  onScroll = e => {
-    Animated.event([
-      {
-        nativeEvent: {
-          contentOffset: {
-            x: e.nativeEvent.contentOffset.x,
+  fadeOut = () => {
+    Animated.timing(this.state.value, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.ease,
+      // delay: 200,
+    }).start();
+  };
+
+  onScroll = () => {
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            contentOffset: {
+              x: this.state.value,
+            },
           },
         },
-      },
-    ]);
+      ],
+      { useNativeDriver: true }
+    );
   };
 
   render() {
+    let translateX = this.state.value.interpolate({
+      inputRange: [0, 180],
+      outputRange: [0, -180],
+      extrapolate: 'clamp',
+    });
+
     return (
       <ScrollView>
         <Container>
@@ -81,7 +104,7 @@ class Today extends React.Component {
             <Title>오늘의 VIBE</Title>
             <More />
           </TitleBar>
-          <Animated.FlatList
+          <AnimatedFlatList
             data={DATA}
             horizontal
             scrollEventThrottle={16}
@@ -96,13 +119,14 @@ class Today extends React.Component {
             )}
             keyExtractor={item => item.title}
           />
+          <Animated.View
+            style={[SlideContainer, { transform: [{ translateX }] }]}
+          />
         </Container>
       </ScrollView>
     );
   }
 }
-
-export default Today;
 
 // fixed
 const Container = styled.View`

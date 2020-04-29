@@ -1,97 +1,67 @@
-import React /*, { useEffect, useState }*/ from 'react';
+import React from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 
-import { slide } from '../../../data/slide';
-// import LikeSlide from './LikeSlide';
+import { listen } from '../../../config';
 
 interface slide {
-  label: string;
-  img: string;
+  recommendation_id: number;
+  main_image: string;
   title: string;
   subTitle: string;
 }
 
-interface Idata {
+interface data {
   data: slide[];
 }
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    img:
-      'https://music-phinf.pstatic.net/20200316_69/1584352929448wNkTs_PNG/cover_img_%BF%E4%C1%F2%C0%CC%B0%EE_0316_2.png?type=f360',
-    title: '요즘이곡',
-    subTitle: '흥행 예감 신곡들! 핫하고 트렌디한 곡들을 놓치지 마세요.',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    img:
-      'https://music-phinf.pstatic.net/20200218_159/1581991533527Fs4zj_PNG/bb11aws_05%C7%C3%B7%B9%C0%CC%B8%AE%BD%BA%C6%AE%C4%BF%B9%F6.png?type=f360',
-    title: '오후의 노동요',
-    subTitle:
-      '빠른 비트와 중독성 넘치는 후크! 내 안의 모든 집중력을 끌여올려줄 노동요 도착',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    img:
-      'https://music-phinf.pstatic.net/20191121_58/1574322543698KbnOz_PNG/VIBE_WORKSTUDY_Lo-fi.png?type=f360',
-    title: 'Work/Study Lo-fi',
-    subTitle:
-      '도서관에서, 사무실에서. 집중력이 필요한 시간에 듣기 좋은 차분한 멜로디와 간질간질한 질감의 로파이 비트.',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    img:
-      'https://music-phinf.pstatic.net/20191128_300/1574910132937ryf6H_PNG/VIBE_%B0%F8%C5%EB_MONDAYMONSTER.png?type=f360',
-    title: 'MONDAY MONSTER',
-    subTitle:
-      '월요병 무찌르는 신나는 팝, 일렉트로닉 음악. 결쾌한 사운드와 함께하는 한 주의 시작!',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    img:
-      'https://music-phinf.pstatic.net/20191121_137/1574322591385jGeDN_PNG/VIBE_%B0%F8%C5%EB_SELECTSHOP.png?type=f360',
-    title: '편집숍에서',
-    subTitle:
-      '집콕 중인 집순이 집돌이를 위해 준비했어요! 힙한 편집숍을 통째로 옮겨놓은 듯한 신선하고 감각적인 사운드.',
-  },
-];
+export default class Listen extends React.Component<data> {
+  state: data = {
+    data: [],
+  };
 
-const Item = ({ img, title, subTitle }) => {
-  return (
-    <ItemContainer>
-      <AlbumImage source={{ uri: `${img}` }} />
-      <TextContainer>
-        <Title>{title}</Title>
-        <SubTitle>{subTitle}</SubTitle>
-      </TextContainer>
-    </ItemContainer>
-  );
-};
+  componentDidMount() {
+    this.getRecommendationList();
+  }
 
-const Listen = () => {
-  return (
-    <Container>
-      <ListeneBar>
-        <LikeTitle>들려주고 싶어서</LikeTitle>
-        <More>더보기</More>
-      </ListeneBar>
-      <SafeAreaView>
-        <FlatList
-          data={DATA}
-          horizontal
-          renderItem={({ item }) => (
-            <Item img={item.img} title={item.title} subTitle={item.subTitle} />
-          )}
-          keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
-    </Container>
-  );
-};
+  getRecommendationList = () => {
+    fetch(listen)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          data: res.recommendation_list,
+        });
+      });
+  };
 
-export default Listen;
+  render() {
+    const { data } = this.state;
+    return (
+      <Container>
+        <ListeneBar>
+          <LikeTitle>들려주고 싶어서</LikeTitle>
+          <More>더보기</More>
+        </ListeneBar>
+        <SafeAreaView>
+          <FlatList
+            data={data}
+            horizontal
+            renderItem={({ item }) => (
+              <ItemContainer>
+                <AlbumImage source={{ uri: `${item.main_image}` }} />
+                <TextContainer>
+                  <Title>{item.title}</Title>
+                  <SubTitle>{item.subTitle}</SubTitle>
+                </TextContainer>
+              </ItemContainer>
+            )}
+            keyExtractor={item => item.recommendation_id}
+          />
+        </SafeAreaView>
+      </Container>
+    );
+  }
+}
 
 // fixed
 const Container = styled.View`

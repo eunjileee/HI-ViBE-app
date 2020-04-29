@@ -5,18 +5,18 @@ import styled from 'styled-components/native';
 import { albumList } from '../../../config';
 
 interface slide {
-  label: string;
-  img: string;
-  title: string;
-  subTitle: string;
+  album_id: number;
+  album_image: string;
+  album_name: string;
+  album_artist_name: string;
 }
 
-interface Idata {
+interface data {
   data: slide[];
 }
 
-export default class Album extends React.Component {
-  state = {
+export default class Album extends React.Component<data> {
+  state: data = {
     data: [],
   };
 

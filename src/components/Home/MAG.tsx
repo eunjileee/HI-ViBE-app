@@ -3,70 +3,29 @@ import { FlatList, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
 
 import { mag } from '../../../config';
-import { slide } from '../../../data/slide';
 
 interface slide {
-  label: string;
-  img: string;
+  thumbnail: string;
+  badge: string;
   title: string;
   subTitle: string;
+  magazine_id: number;
 }
 
 interface data {
   data: slide[];
 }
 
-// {
-//   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//   img:
-//     'https://music-phinf.pstatic.net/20200316_152/1584345235224ChSmG_JPEG/0_%B4%EB%C7%A5_%C0%CC%B9%CC%C1%F6.jpg?type=w720',
-//   title:
-//     'https://music-phinf.pstatic.net/20190527_64/1558943253671FKQca_PNG/icon_GENRE.png',
-//   subTitle: '역대 007 시리즈 \n주제가들',
-// },
-// {
-//   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//   img:
-//     'https://music-phinf.pstatic.net/20200310_193/1583820269848WJ9DF_PNG/200309_Artist_type_%C0%D3%BF%B5%BF%F5.png?type=w720',
-//   title:
-//     'https://music-phinf.pstatic.net/20190702_287/1562066500033t4gp0_PNG/icon_pick.png',
-//   subTitle: '이주의 디깅 #49 \n임영웅',
-// },
-// {
-//   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//   img:
-//     'https://music-phinf.pstatic.net/20200306_219/1583477038314WAAkR_JPEG/0_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg?type=w720',
-//   title:
-//     'https://music-phinf.pstatic.net/20190527_64/1558943253671FKQca_PNG/icon_GENRE.png',
-//   subTitle: '한대음 다시 보기 \n무관의 제왕',
-// },
-// {
-//   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//   img:
-//     'https://music-phinf.pstatic.net/20200306_245/1583497401033SMHB3_JPEG/%B8%DE%C0%CE.jpg?type=w840',
-//   title:
-//     'https://music-phinf.pstatic.net/20191127_46/1574842826929bou6V_PNG/icon_special.png',
-//   subTitle: '달과 나비와 \nVIINI의 세계',
-// },
-// {
-//   id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//   img:
-//     'https://music-phinf.pstatic.net/20200305_82/15833925658320s9kz_JPEG/%C3%BB%C7%CF%B8%DE%C0%CE1.jpg?type=w720',
-//   title:
-//     'https://music-phinf.pstatic.net/20191127_46/1574842826929bou6V_PNG/icon_special.png',
-//   subTitle: '청하는\n지치지 않아.',
-// },
-
-export default class MAG extends React.Component {
-  state = {
+export default class MAG extends React.Component<data> {
+  state: data = {
     data: [],
   };
 
   componentDidMount() {
-    this.getListCall();
+    this.getMagList();
   }
 
-  getListCall() {
+  getMagList = () => {
     fetch(mag)
       .then(res => res.json())
       .then(res => {
@@ -74,19 +33,8 @@ export default class MAG extends React.Component {
           data: res.magazine_list,
         });
       });
-  }
+  };
 
-  // const Item = ({ badge, title }) => {
-  //   return (
-  //     <ItemContainer>
-  //       <AlbumImage />
-  //       <TextContainer>
-  //         <Tag resizeMode="contain" source={{ uri: `${badge}` }} />
-  //         <SubTitle>{title}</SubTitle>
-  //       </TextContainer>
-  //     </ItemContainer>
-  //   );
-  // };
   render() {
     const { data } = this.state;
     return (
@@ -107,7 +55,6 @@ export default class MAG extends React.Component {
                   <SubTitle>{item.title}</SubTitle>
                 </TextContainer>
               </ItemContainer>
-              // <Item badge={item.badge} title={item.title} />
             )}
             keyExtractor={item => item.magazine_id}
           />
