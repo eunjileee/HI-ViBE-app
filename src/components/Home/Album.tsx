@@ -11,12 +11,12 @@ interface slide {
   album_artist_name: string;
 }
 
-interface data {
+interface dataArr {
   data: slide[];
 }
 
-export default class Album extends React.Component<data> {
-  state: data = {
+export default class Album extends React.Component<dataArr> {
+  state: dataArr = {
     data: [],
   };
 
